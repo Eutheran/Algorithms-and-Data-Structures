@@ -3,6 +3,7 @@ class HashTable {
     this.keyMap = new Array(size);
   }
 
+  //this hashing function will only work with strings
   _hash(key) {
     let total = 0;
     let primeNum = 31;
@@ -38,7 +39,6 @@ class HashTable {
       for (let array of this.keyMap[index]) {
         if (array[0] === key) return array[1];
       }
-      return undefined;
     }
     return undefined;
   }
