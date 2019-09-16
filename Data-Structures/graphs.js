@@ -22,10 +22,10 @@ class AdjacencyListGraph {
       if (!this.adjacencyList[vertex2].includes(vertex1)) {
         this.adjacencyList[vertex2].push(vertex1);
       }
+      return this.adjacencyList;
     } else {
       console.log('Vertices are invalid');
     }
-    return this.adjacencyList;
   }
 
   removeEdge(vertex1, vertex2) {
