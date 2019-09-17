@@ -61,13 +61,13 @@ class AdjacencyListGraph {
   }
 
   depthFirstSearchRecursive(vertex) {
-    const resultList = [];
+    const result = [];
     const visited = {};
 
     const depthFirstSearch = vertex => {
       if (this.adjacencyList[vertex].length === 0) return;
       visited[vertex] = true;
-      resultList.push(vertex);
+      result.push(vertex);
       this.adjacencyList[vertex].forEach(adjacentVertex => {
         if (!visited[adjacentVertex]) {
           depthFirstSearch(adjacentVertex);
@@ -75,19 +75,19 @@ class AdjacencyListGraph {
       });
     };
     depthFirstSearch(vertex);
-    return resultList;
+    return result;
   }
 
   depthFirstSearchIterative(vertex) {
     const stack = [];
     const visited = {};
-    const resultList = [];
+    const result = [];
     let curVertex;
     stack.push(vertex);
     visited[vertex] = true;
     while (stack.length > 0) {
       curVertex = stack.pop();
-      resultList.push(curVertex);
+      result.push(curVertex);
       this.adjacencyList[curVertex].forEach(adjacentVertex => {
         if (!visited[adjacentVertex]) {
           visited[adjacentVertex] = true;
@@ -95,30 +95,7 @@ class AdjacencyListGraph {
         }
       });
     }
-    return resultList;
-  }
-
-  breadthFirstSearchRecursive(vertex) {
-    const queue = [];
-    const visited = {};
-    const resultList = [];
-    visited[vertex] = true;
-    queue.push(vertex);
-
-    const breadthFirstSearch = () => {
-      if (queue.length === 0) return;
-      let curVertex = queue.shift();
-      resultList.push(curVertex);
-      this.adjacencyList[curVertex].forEach(adjacentVertex => {
-        if (!visited[adjacentVertex]) {
-          visited[adjacentVertex] = true;
-          queue.push(adjacentVertex);
-        }
-      });
-      breadthFirstSearch();
-    };
-    breadthFirstSearch();
-    return resultList;
+    return result;
   }
 
   breadthFirstSearchIterative(vertex) {
@@ -142,7 +119,7 @@ class AdjacencyListGraph {
   }
 }
 
-// let graph = new AdjacencyListGraph;
+// let graph = new AdjacencyListGraph();
 // graph.addVertex('A');
 // graph.addVertex('B');
 // graph.addVertex('C');
