@@ -22,10 +22,10 @@ class AdjacencyListGraph {
       if (!this.adjacencyList[vertex2].includes(vertex1)) {
         this.adjacencyList[vertex2].push(vertex1);
       }
-      return this.adjacencyList;
     } else {
       console.log('Vertices are invalid');
     }
+    return this.adjacencyList;
   }
 
   removeEdge(vertex1, vertex2) {
@@ -54,18 +54,109 @@ class AdjacencyListGraph {
       if (this.adjacencyList[vertex].length === 0) {
         delete this.adjacencyList[vertex];
       }
-
       return this.adjacencyList;
     } else {
       console.log('Invalid Vertex');
     }
   }
+
+  depthFirstSearchRecursive(vertex) {
+    const resultList = [];
+    const visited = {};
+
+    const depthFirstSearch = vertex => {
+      if (this.adjacencyList[vertex].length === 0) return;
+      visited[vertex] = true;
+      resultList.push(vertex);
+      this.adjacencyList[vertex].forEach(adjacentVertex => {
+        if (!visited[adjacentVertex]) {
+          depthFirstSearch(adjacentVertex);
+        }
+      });
+    };
+    depthFirstSearch(vertex);
+    return resultList;
+  }
+
+  depthFirstSearchIterative(vertex) {
+    const stack = [];
+    const visited = {};
+    const resultList = [];
+    let curVertex;
+    stack.push(vertex);
+    visited[vertex] = true;
+    while (stack.length > 0) {
+      curVertex = stack.pop();
+      resultList.push(curVertex);
+      this.adjacencyList[curVertex].forEach(adjacentVertex => {
+        if (!visited[adjacentVertex]) {
+          visited[adjacentVertex] = true;
+          stack.push(adjacentVertex);
+        }
+      });
+    }
+    return resultList;
+  }
+
+  breadthFirstSearchRecursive(vertex) {
+    const queue = [];
+    const visited = {};
+    const resultList = [];
+    visited[vertex] = true;
+    queue.push(vertex);
+
+    const breadthFirstSearch = () => {
+      if (queue.length === 0) return;
+      let curVertex = queue.shift();
+      resultList.push(curVertex);
+      this.adjacencyList[curVertex].forEach(adjacentVertex => {
+        if (!visited[adjacentVertex]) {
+          visited[adjacentVertex] = true;
+          queue.push(adjacentVertex);
+        }
+      });
+      breadthFirstSearch();
+    };
+    breadthFirstSearch();
+    return resultList;
+  }
+
+  breadthFirstSearchIterative(vertex) {
+    const queue = [];
+    const visited = {};
+    const result = [];
+    visited[vertex] = true;
+    queue.push(vertex);
+    let curVertex;
+    while (queue.length > 0) {
+      curVertex = queue.shift();
+      result.push(curVertex);
+      this.adjacencyList[curVertex].forEach(adjacentVertex => {
+        if (!visited[adjacentVertex]) {
+          visited[adjacentVertex] = true;
+          queue.push(adjacentVertex);
+        }
+      });
+    }
+    return result;
+  }
 }
 
-let graph = new AdjacencyListGraph();
-graph.addVertex('A');
-graph.addVertex('B');
-graph.addVertex('C');
-graph.addVertex('D');
-graph.addVertex('E');
-graph.addVertex('F');
+// let graph = new AdjacencyListGraph;
+// graph.addVertex('A');
+// graph.addVertex('B');
+// graph.addVertex('C');
+// graph.addVertex('D');
+// graph.addVertex('E');
+// graph.addVertex('F');
+// graph.addEdge('A', 'B');
+// graph.addEdge('A', 'C');
+// graph.addEdge('B', 'D');
+// graph.addEdge('C', 'E');
+// graph.addEdge('D', 'E');
+// graph.addEdge('D', 'F');
+// graph.addEdge('E', 'F');
+// graph.depthFirstSearchRecursive('A');
+// correct answer for recursive is ['A' , 'B', 'D', 'E', 'C', 'F']
+// graph.depthFirstSearchIterative('A');
+//correct answer for iterative is [ 'A', 'C', 'E', 'F', 'D', 'B'] because it goes down the right side of the graph to start rather than the left due to us popping last value off the stack where in recursive we solve with first value
