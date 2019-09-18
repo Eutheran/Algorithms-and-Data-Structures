@@ -64,17 +64,17 @@ class AdjacencyListGraph {
     const result = [];
     const visited = {};
 
-    const depthFirstSearch = vertex => {
+    const depthFirstSearchHelper = vertex => {
       if (this.adjacencyList[vertex].length === 0) return;
       visited[vertex] = true;
       result.push(vertex);
       this.adjacencyList[vertex].forEach(adjacentVertex => {
         if (!visited[adjacentVertex]) {
-          depthFirstSearch(adjacentVertex);
+          depthFirstSearchHelper(adjacentVertex);
         }
       });
     };
-    depthFirstSearch(vertex);
+    depthFirstSearchHelper(vertex);
     return result;
   }
 
