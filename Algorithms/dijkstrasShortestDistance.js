@@ -1,3 +1,6 @@
+/* eslint-disable no-loop-func */
+/* eslint-disable guard-for-in */
+/* eslint-disable complexity */
 class Node {
   constructor(value, priority) {
     this.value = value;
