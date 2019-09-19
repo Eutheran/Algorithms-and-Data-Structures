@@ -35,7 +35,7 @@ class PriorityQueue {
     if (this.values.length > 0) {
       this.values[0] = max;
     }
-    while (true) {
+    while (idx < this.values.length - 1) {
       let leftChildIdx = 2 * idx + 1;
       let rightChildIdx = 2 * idx + 2;
       let leftChild = this.values[leftChildIdx];
@@ -64,7 +64,7 @@ class PriorityQueue {
         break;
       }
     }
-    return this.values;
+    return min;
   }
 }
 

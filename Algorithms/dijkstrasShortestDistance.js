@@ -38,7 +38,7 @@ class PriorityQueue {
     if (this.values.length > 0) {
       this.values[0] = max;
     }
-    while (true) {
+    while (idx < this.values.length - 1) {
       let leftChildIdx = 2 * idx + 1;
       let rightChildIdx = 2 * idx + 2;
       let leftChild = this.values[leftChildIdx];
@@ -99,7 +99,7 @@ class WeightedListGraph {
     const previous = {};
     const distances = {};
     let smallest;
-    const shortestPath = [];
+    const shortestPathResult = [];
     const priorityQueue = new PriorityQueue();
 
     //set up initial state
@@ -120,7 +120,7 @@ class WeightedListGraph {
         //while a node exists on the path, eventually our START variable will set this value to NULL;
         while (smallest) {
           //we push each node along the way into our results array
-          shortestPath.push(smallest);
+          shortestPathResult.push(smallest);
           //we set smallest to the previous node until we hit START
           smallest = previous[smallest];
         }
@@ -148,7 +148,7 @@ class WeightedListGraph {
         });
       }
     }
-    return shortestPath.reverse();
+    return shortestPathResult.reverse();
   }
 }
 
