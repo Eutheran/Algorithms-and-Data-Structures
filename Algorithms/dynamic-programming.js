@@ -28,6 +28,7 @@ const fib_table = num => {
 
 //this version of the table is O(1), constant space! We only store the pieces we need to complete the next sequence of fib and the answer.
 const fib_best_table = num => {
+  if (num <= 0) return 1;
   const fibNums = [0, 1, 1];
   let count = 3;
   while (count <= num) {
